@@ -1,4 +1,4 @@
-#include <stadio.h>
+#include <stdio.h>
 /**
  * main - A program that prints aline with puts function 
  * Return: 0(success)
