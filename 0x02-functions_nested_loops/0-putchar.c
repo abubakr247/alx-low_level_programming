@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "main.h"
 /**
- * main a program prints the _putchar
+ * main  a program that prints _putchar
  * Return: Always (Success)
  */
 int main(void)
