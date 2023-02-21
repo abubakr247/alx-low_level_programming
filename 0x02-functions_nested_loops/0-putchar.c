@@ -4,7 +4,7 @@
  * main a program prints the _putchar
  * Return: Always (Success)
  */
-int main(main.h)
+int main(void)
 {
 	putchar('_');
 	putchar('p');
