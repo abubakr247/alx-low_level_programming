@@ -2,9 +2,9 @@
 #include <main.h>
 /**
  * main a program prints the _putchar
- * Return: Always 0
+ * Return: Always (Success)
  */
-int main(void)
+int main(main.h)
 {
 	putchar('_');
 	putchar('p');
