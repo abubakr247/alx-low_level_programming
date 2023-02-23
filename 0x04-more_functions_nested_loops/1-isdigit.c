@@ -4,7 +4,7 @@
 *@x: The number to be checked
 * Return: 1 for a character that will be a digit or for any els/e
 */
-int _isdigit(int x)
+int isdigit(int x)
 {
 if (x >= 48 && x <= 57)
 
