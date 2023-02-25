@@ -1,14 +1,17 @@
 #include <stdio.h>
+
 /**
- * main a program that prints the alphabet
+ * main - Prints the alphabetic
+ *
  * Return: Always (Success)
  */
 int main(void)
-
 {
 	char c;
+
 	for (c = 'a'; c <= 'z'; c++)
-	putchar (c);
-	putchar ('\n');
+		putchar(c);
+
+	putchar('\n');
 	return (0);
 }
