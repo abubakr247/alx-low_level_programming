@@ -1,19 +1,16 @@
-#include <stdio.h>
 #include "main.h"
 /**
- * main a program that prints _putchar, followed by a new line.
- * * Return: Always (Success)
- */
-int main(void)
+  * _isupper - Check if a letter is upper
+  * @x: The number to be checked
+  *
+  * Return: 1 for upper letter or 0 for any else
+  */
+int _isupper(int x)
 {
-	putchar('_');
-	putchar('p');
-	putchar('u');
-	putchar('t');
-	putchar('c');
-	putchar('h');
-	putchar('a');
-	putchar('r');
-	putchar('\n');
+	if (x >= 65 && x <= 90)
+	{
+		return (1);
+	}
+
 	return (0);
 }
