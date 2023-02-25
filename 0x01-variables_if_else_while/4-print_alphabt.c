@@ -1,17 +1,23 @@
 #include <stdio.h>
+
 /**
- * main a program that prints the alphabet
- * Return: Always (Success)
- */
+  * main - Prints some letters of alphabet
+  *
+  * Return: Always (Success)
+  */
 int main(void)
 {
-	char low,e,q;
-	e = 'e';
-	q = 'q';
-	for (low = 'a'; low <= 'z'; low++)
-	if (low != e && low != q)                	putchar (low);
-	putchar ('\n');
+	char c;
+
+	for (c = 'a'; c <= 'z'; c++)
+	{
+		if (c != 'e' && c != 'q')
+		{
+			putchar(c);
+		}
+	}
+
+	putchar('\n');
+
 	return (0);
 }
-
-)
