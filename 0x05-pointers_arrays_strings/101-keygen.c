@@ -52,6 +52,6 @@ int main(void)
 
 	}
 }
-prinf("%S", password);
+prinf("%s", password);
 return (0);
 }
