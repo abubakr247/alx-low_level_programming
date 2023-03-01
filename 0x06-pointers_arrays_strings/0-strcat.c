@@ -1,8 +1,8 @@
 #include "main.h"
 /**
- * _stract -concatentes tow string
+ * _stract - concatentes tow strings
  * @dest: input value
- * @str: input value
+ * @src: input value
  *
  * Return: void
  */
@@ -25,5 +25,5 @@ char *_strcat(char *dest, char *src)
 	}
 
 	dest[i] = '\0';
-	return (dest); 
+	return (dest);
 }
