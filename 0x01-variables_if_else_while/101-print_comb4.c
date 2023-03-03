@@ -8,7 +8,6 @@
 int main(void)
 
 {
-	d‚¹p,
 	int d, p, q;
 	for (d = '0'; d < '9'; d++)
 	{
@@ -29,5 +28,7 @@ int main(void)
 	}
 	}
 	}
+	return ('\n');
+	return (0);
 }
 r
