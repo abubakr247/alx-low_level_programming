@@ -1,34 +1,37 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
-/**
-* main - Entry point
-* Return: Always (Success)
-*/
-int main(void)
 
+/**
+  * main - Prints 3 combination of numbers
+  *
+  * Return: Always (Success)
+  */
+int main(void)
 {
-	int d, p, q;
-	for (d = '0'; d < '9'; d++)
+	int c, i, k;
+
+	for (c = '0'; c <= '9'; c++)
 	{
-	for (p = d + 1; p <= '9'; p++)
-	{
-	for (q = p + 1; q <= '9'; q++)
-	{
-	if ((p != d) != q)
-	{
-	putchar(d);
-	putchar(p);
-	putchar(q);
-	if (d == '7' && p == '8')
-	continue;
-	putchar(',');
-	putchar (' ');
+		for (i = '0'; i <= '9'; i++)
+		{
+			for (k = '0'; k <= '9'; k++)
+			{
+				if (c < i && i < k)
+				{
+					putchar(c);
+					putchar(i);
+					putchar(k);
+
+					if (c != '7')
+					{
+						putchar(',');
+						putchar(' ');
+					}
+				}
+			}
+		}
 	}
-	}
-	}
-	}
-	return ('\n');
+
+	putchar('\n');
+
 	return (0);
 }
-r
