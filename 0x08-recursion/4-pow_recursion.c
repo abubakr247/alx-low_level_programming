@@ -2,34 +2,19 @@
 #include <stdio.h>
 
 /**
- * sqrt_mod - Recursive function to find a square root
- * of a given number
- * @n: Given number
- * @i: Variable counter
- * Return: Square root of a given number
- */
-int sqrt_mod(int n, int i)
+  * _pow_recursion - Returns the value of x raised to the power of y
+  * @x: the value to multiply
+  * @y: the times to multiply the value
+  *
+  * Return: the value multiplied y times
+  */
+int _pow_recursion(int x, int y)
 {
-	if (i * i == n)
-		return (i);
-	i++;
-	if (i * i < n)
-		return (sqrt_mod(n, ++i));
-	if (i * i > n)
+	if (y < 0)
 		return (-1);
-	return (i);
-}
-/**
- * _sqrt_recursion - Square root of a given number
- * @n: Integer variable
- * Return: Integer variable
- */
-int _sqrt_recursion(int n)
-{
-	int i = 1;
 
-	if (n == 1 || n == 0)
-		return (n);
+	if (y == 0)
+		return (1);
 
-	return (sqrt_mod(n, i));
+	return (x * _pow_recursion(x, y - 1));
 }
