@@ -1,114 +1,82 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include <sys/types.h>
 #include <unistd.h>
 #include <sys/stat.h>
-
-int copy_file(const char *from_path, const char *to_path);
-
+#include <fcntl.h>
+#include <stdlib.h>
+#include <stdio.h>
 /**
- * main - Entry point
- * DESCRIPTION: a program that copies the content of a file
- * to another file
- * @argc: number of command line arguments passed to the program
- * @argv: arguments passed through command line
- * Return: 1 on success, -1 on failure
+ * copy_textfile- Copies text file into another
+ * @file_from: name of the file to be read from
+ * @file_to: name of the file to write to
+ * Return: Number of letters copied
  */
-int main(int argc, char **argv)
+void copy_textfile(const char *file_from, const char *file_to)
 {
-	int result;
+	char *buf;
+	int n, cs, cs2, wn, fd, fd2;
 
-	if (argc != 3)
+	buf = malloc(1024 * sizeof(char));
+	fd = open(file_from, O_RDONLY);
+	if (fd == -1 || !buf)
 	{
-		dprintf(STDERR_FILENO, "Usage: cp file_from file_to\n");
-		exit(97);
-	}
-	result = copy_file(argv[1], argv[2]);
-
-	return (result);
-}
-
-/**
- * copy_file - copy file to file
- * DESCRIPTION: a function that copies the content of a file
- * to another file
- * @from_path: the first file to copy from
- * @to_path: the second file to copy into
- * Return: 0 on success, -1 on failure
- */
-int copy_file(const char *from_path, const char *to_path)
-{
-	FILE *from = fopen(from_path, "r");
-	FILE *to = fopen(to_path, "w");
-	char buffer[1024];
-	size_t count;
-	int write, close, stat_file;
-	struct stat st;
-
-	if (from == NULL)
-	{
-		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", from_path);
+		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", file_from);
 		exit(98);
 	}
-
-	if (to == NULL)
+	fd2 = open(file_to, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if (fd2 == -1)
 	{
-		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", to_path);
-		fclose(from);
+		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", file_to);
 		exit(99);
 	}
-
-	if (access(to_path, F_OK) != -1)
+	n = read(fd, buf, 1024);
+	do {
+	if (n == -1)
 	{
-		if (truncate(to_path, 0) != 0)
-		{
-			dprintf(STDERR_FILENO, "Error: Can't truncate %s\n", to_path);
-			fclose(from);
-			fclose(to);
-			exit(99);
-		}
+		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", file_from);
+		exit(98);
 	}
-
-	while ((count = fread(buffer, 1, sizeof(buffer), from)))
+	wn = write(fd2, buf, n);
+	if (wn == -1)
 	{
-		write = fwrite(buffer, 1, count, to);
-		if (write < 0 || (size_t)write < count)
-		{
-			dprintf(STDERR_FILENO, "Error: Can't write to %s\n", to_path);
-			fclose(from);
-			fclose(to);
-			exit(99);
-		}
+		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", file_to);
+		exit(99);
 	}
-
-	close = fclose(from);
-	if (close != 0)
+	fd2 = open(file_to, O_WRONLY | O_APPEND);
+	n = read(fd, buf, 1024);
+	} while (n > 0);
+	free(buf);
+	cs = close(fd);
+	if (cs == -1)
 	{
-		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fileno(from));
-		fclose(to);
+		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd);
 		exit(100);
 	}
-
-	close = fclose(to);
-	if (close != 0)
+	cs2 = close(fd2);
+	if (cs2 == -1)
 	{
-		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fileno(to));
+		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd2);
 		exit(100);
 	}
-
-	stat_file = stat(to_path, &st);
-	if (stat_file == 0)
+}
+/**
+ * main- Entry point of program
+ * @ac: no of args
+ * @av: pointer to args
+ * Return: 0 on success or -1 on failliar
+ */
+int main(int ac, char **av)
+{
+	if (ac != 3)
 	{
-		mode_t mode = st.st_mode & 0777;
-
-		mode |= S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH;
-		if (chmod(to_path, mode) != 0)
-		{
-			dprintf(STDERR_FILENO, "Error: Can't set permissions for %s\n", to_path);
-			return (-1);
-		}
+		dprintf(2, "Usage: cp file_from file_to\n");
+		exit(97);
 	}
-
+	if (!av[1])
+	{
+		dprintf(2, "Error: Can't read from file %s\n", av[1]);
+		exit(98);
+	}
+	copy_textfile(av[1], av[2]);
 	return (0);
 }
 
