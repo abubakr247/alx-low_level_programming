@@ -6,28 +6,26 @@
  */
 void print_binary(unsigned long int n)
 {
-	int i = 0, count, k, temp;
+	unsigned long int mask = 1UL << 63;
+	int i, flag = 0;
 
-	if (n == 0)
+	for (i = 0; i < 64; i++)
 	{
-		printf("0");
-		return;
+		if (n & mask)
+		{
+			_putchar('1');
+			flag = 1;
+		} else
+		{
+			if (flag)
+			{
+				_putchar('0');
+			}
+		}
+		mask >>= 1;
 	}
-
-	temp = n;
-
-	while (temp != 0)
+	if (!flag)
 	{
-		i++;
-		temp = temp >> 1;
-	}
-
-	for (count = i - 1; count >= 0; count--)
-	{
-		k = n >> count;
-		if (k & 1)
-			printf("1");
-		else
-			printf("0");
+		_putchar('0');
 	}
 }
