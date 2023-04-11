@@ -1,37 +1,46 @@
+#include <stdio.h>
 #include "main.h"
 
 /**
- * append_text_to_file - append text_content to file filename
- * @filename: the path of the file
- * @text_content: content to wrote at file filename
- * Return: 1 success, -1 fialed
- */
+  * append_text_to_file - ...
+  * @filename: ...
+  * @text_content: ...
+  *
+  * Return: ...
+  */
 int append_text_to_file(const char *filename, char *text_content)
 {
 	int fd;
-	unsigned int len;
 
-	if (filename == NULL)
+	if (!filename)
 		return (-1);
-	fd = open(filename, O_APPEND | O_RDWR);
-	if (fd < 0)
+
+	fd = open(filename, O_WRONLY | O_APPEND);
+	if (fd == -1)
 		return (-1);
-	if (text_content == NULL)
+
+	if (text_content)
 	{
-		if (write(fd, "", 0) < 0)
-		{
-			close(fd);
+		if (write(fd, text_content, _strlen(text_content)) == -1)
 			return (-1);
-		}
-		return (1);
 	}
-	len = strlen(text_content);
-	if (write(fd, text_content, len) < 0)
-	{
-		close(fd);
-		return (-1);
-	}
+
 	close(fd);
 	return (1);
+}
 
+/**
+  * _strlen - Returns the length of a string
+  * @s: String to count
+  *
+  * Return: String length
+  */
+int _strlen(char *s)
+{
+	int c = 0;
+
+	while (s[c])
+		c++;
+
+	return (c);
 }
